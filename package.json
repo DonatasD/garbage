@@ -1,0 +1,14 @@
+{
+  "name": "garbage-calendar",
+  "version": "1.0.0",
+  "description": "iCal feed for waste collection at Samanų g., Didžioji Riešė (Vilniaus r.)",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "fetch": "node scripts/fetch.mjs",
+    "build": "node scripts/build.mjs"
+  },
+  "dependencies": {
+    "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz"
+  }
+}

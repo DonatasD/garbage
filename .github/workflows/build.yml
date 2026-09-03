@@ -1,0 +1,79 @@
+name: Build & deploy calendar
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: "30 4 * * 1" # Mondays 04:30 UTC — check for new schedules
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+  issues: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Fetch latest schedule from nemenkom.lt
+        id: fetch
+        run: |
+          set +e
+          node scripts/fetch.mjs
+          code=$?
+          set -e
+          echo "exit_code=$code" >> "$GITHUB_OUTPUT"
+          # exit 1 = hard parse failure; exit 2 = ok but new PDFs need review
+          if [ "$code" = "1" ]; then
+            echo "::warning::fetch.mjs failed — building from committed data/schedule.json"
+          fi
+
+      - name: Open issue if new source files need manual review
+        if: steps.fetch.outputs.exit_code == '2'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          title="New schedule files published on nemenkom.lt — update packaging/glass dates"
+          existing=$(gh issue list --state open --search "$title in:title" --json number --jq length)
+          if [ "$existing" = "0" ]; then
+            gh issue create --title "$title" \
+              --body "scripts/fetch.mjs detected new schedule files on https://www.nemenkom.lt/buitiniu-ir-pakuociu-atlieku-surinkimo-grafikas/ . Household (mixed) dates were updated automatically; packaging/glass PDF dates must be updated by hand in data/schedule.json. See the workflow run log for the file URLs."
+          fi
+
+      - name: Commit updated schedule.json
+        run: |
+          if ! git diff --quiet data/schedule.json; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add data/schedule.json
+            git commit -m "chore: update schedule from nemenkom.lt"
+            git push
+          fi
+
+      - name: Build ICS + site
+        run: node scripts/build.mjs
+
+      - uses: actions/configure-pages@v5
+        with:
+          enablement: true
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: public
+
+      - uses: actions/deploy-pages@v4

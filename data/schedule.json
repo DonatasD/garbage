@@ -1,0 +1,57 @@
+{
+  "location": {
+    "street": "Samanų g.",
+    "town": "Didžioji Riešė",
+    "eldership": "Riešės sen.",
+    "municipality": "Vilniaus r.",
+    "operator": "UAB Nemenčinės komunalininkas"
+  },
+  "streams": {
+    "mixed": {
+      "label": "Buitinės (mišrios) atliekos",
+      "emoji": "🗑️",
+      "weekday": "Trečiadienis",
+      "dates": [
+        "2026-06-10",
+        "2026-06-24",
+        "2026-07-08",
+        "2026-07-22",
+        "2026-08-05",
+        "2026-08-19",
+        "2026-09-02",
+        "2026-09-16",
+        "2026-09-30",
+        "2026-10-14",
+        "2026-10-28",
+        "2026-11-11",
+        "2026-11-25",
+        "2026-12-09",
+        "2026-12-23"
+      ],
+      "source": "https://www.nemenkom.lt/uploads/failai/atliekos/Buitini%C5%B3%20atliek%C5%B3%20surinkimo%20grafikai/2026%20m-%20bir%C5%BEelis-gruodis%20m%C4%97n%20%20Buitini%C5%B3%20atliek%C5%B3%20surinkimo%20grafikas.xlsx"
+    },
+    "packaging": {
+      "label": "Pakuočių atliekos (plastikas, popierius, metalas)",
+      "emoji": "♻️",
+      "dates": [
+        "2026-07-03",
+        "2026-08-05",
+        "2026-09-03"
+      ],
+      "source": "https://www.nemenkom.lt/uploads/failai/atliekos/Pakuo%C4%8Di%C5%B3%20atliek%C5%B3%20grafikas/%E2%80%9E2026%20m-%20liepos%2C%20rugpj%C5%AB%C4%8Dio%2C%20rugs%C4%97jo%20m%C4%97n-%20Pakuo%C4%8Di%C5%B3%20atliek%C5%B3%20surinkimo%20grafikas.pdf"
+    },
+    "glass": {
+      "label": "Stiklo pakuočių atliekos",
+      "emoji": "🍾",
+      "dates": [
+        "2026-07-29"
+      ],
+      "source": "https://www.nemenkom.lt/uploads/failai/atliekos/Stiklo%20pakuot%C4%97s/2026%20m-%20liepos%2C%20rugpj%C5%AB%C4%8Dio%2C%20rugs%C4%97jo%20m%C4%97n-%20Stiklo%20pakuo%C4%8Di%C5%B3%20atliek%C5%B3%20surinkimo%20grafikas.pdf"
+    }
+  },
+  "knownSourceFiles": [
+    "/uploads/failai/atliekos/Pakuo%C4%8Di%C5%B3%20atliek%C5%B3%20grafikas/%E2%80%9E2026%20m-%20liepos%2C%20rugpj%C5%AB%C4%8Dio%2C%20rugs%C4%97jo%20m%C4%97n-%20Pakuo%C4%8Di%C5%B3%20atliek%C5%B3%20surinkimo%20grafikas.pdf",
+    "/uploads/failai/atliekos/Stiklo%20pakuot%C4%97s/2026%20m-%20liepos%2C%20rugpj%C5%AB%C4%8Dio%2C%20rugs%C4%97jo%20m%C4%97n-%20Stiklo%20pakuo%C4%8Di%C5%B3%20atliek%C5%B3%20surinkimo%20grafikas.pdf",
+    "/uploads/failai/atliekos/Buitini%C5%B3%20atliek%C5%B3%20surinkimo%20grafikai/2026%20m-%20bir%C5%BEelis-gruodis%20m%C4%97n%20%20Buitini%C5%B3%20atliek%C5%B3%20surinkimo%20grafikas.xlsx"
+  ]
+}
