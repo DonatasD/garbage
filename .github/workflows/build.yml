@@ -77,3 +77,18 @@ jobs:
           path: public
 
       - uses: actions/deploy-pages@v4
+
+      - name: Open issue if the workflow failed
+        if: failure()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          title="Calendar build/deploy failed"
+          existing=$(gh issue list --state open --search "$title in:title" --json number --jq length)
+          if [ "$existing" = "0" ]; then
+            gh issue create --title "$title" \
+              --body "The Build & deploy calendar workflow failed. The published feed still serves the last successful build, but it will not receive updates until this is fixed. Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          else
+            gh issue comment "$(gh issue list --state open --search "$title in:title" --json number --jq '.[0].number')" \
+              --body "Failed again: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          fi
