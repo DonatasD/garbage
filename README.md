@@ -3,8 +3,8 @@
 Subscribable iCal feed with waste collection dates for **Samanų g., Didžioji Riešė**
 (Riešės sen., Vilniaus r.). Served by GitHub Pages, updated by GitHub Actions.
 
-**Subscribe:** `https://<user>.github.io/garbage-calendar/garbage.ics`
-(landing page with one-click buttons: `https://<user>.github.io/garbage-calendar/`)
+**Subscribe:** `https://donatasd.com/garbage/garbage.ics`
+(landing page with one-click buttons: `https://donatasd.com/garbage/`)
 
 ## Waste streams
 
