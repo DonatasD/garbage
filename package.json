@@ -9,6 +9,7 @@
     "build": "node scripts/build.mjs"
   },
   "dependencies": {
+    "pdfjs-dist": "^4.10.38",
     "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz"
   }
 }

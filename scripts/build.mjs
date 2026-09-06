@@ -8,6 +8,10 @@ const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const schedule = JSON.parse(readFileSync(join(root, "data", "schedule.json"), "utf8"));
 
 const CAL_NAME = `Atliekų išvežimas — ${schedule.location.street}, ${schedule.location.town}`;
+const OPERATORS = [...new Set(Object.values(schedule.streams).map(s => s.operator))];
+for (const [key, stream] of Object.entries(schedule.streams)) {
+  if (!stream.operator) throw new Error(`stream ${key} has no operator`);
+}
 const WEEKDAYS_LT = {
   Pirmadienis: 1, Antradienis: 2, Trečiadienis: 3, Ketvirtadienis: 4,
   Penktadienis: 5, Šeštadienis: 6, Sekmadienis: 0,
@@ -72,7 +76,7 @@ const lines = [
   "METHOD:PUBLISH",
   `X-WR-CALNAME:${escapeText(CAL_NAME)}`,
   "X-WR-TIMEZONE:Europe/Vilnius",
-  `X-WR-CALDESC:${escapeText(`Atliekų išvežimo grafikas. Vežėjas: ${schedule.location.operator}. Konteinerį išstumti iki 7:00 ryto.`)}`,
+  `X-WR-CALDESC:${escapeText(`Atliekų išvežimo grafikas. Vežėjai: ${OPERATORS.join(", ")}. Konteinerį išstumti iki 7:00 ryto.`)}`,
   "REFRESH-INTERVAL;VALUE=DURATION:P1D",
   "X-PUBLISHED-TTL:P1D",
 ];
@@ -93,7 +97,7 @@ for (const { key, stream, iso } of allEvents) {
     `DTSTART;VALUE=DATE:${icsDate(iso)}`,
     `DTEND;VALUE=DATE:${icsDate(nextDay(iso))}`,
     `SUMMARY:${escapeText(`${stream.emoji} ${stream.label}`)}`,
-    `DESCRIPTION:${escapeText(`Konteinerį išstumti iki 7:00 ryto.\nVežėjas: ${schedule.location.operator}\nŠaltinis: ${stream.source}`)}`,
+    `DESCRIPTION:${escapeText(`Konteinerį išstumti iki 7:00 ryto.\nVežėjas: ${stream.operator}\nŠaltinis: ${stream.source}`)}`,
     `LOCATION:${escapeText(`${schedule.location.street}, ${schedule.location.town}, ${schedule.location.municipality}`)}`,
     "TRANSP:TRANSPARENT",
     "BEGIN:VALARM",
@@ -146,8 +150,8 @@ const html = `<!doctype html>
 </head>
 <body>
 <h1>🗑️ Atliekų išvežimo kalendorius<br>${schedule.location.street}, ${schedule.location.town} (${schedule.location.municipality})</h1>
-<p>Prenumeruojamas iCal kalendorius su buitinių, pakuočių ir stiklo atliekų išvežimo dienomis.
-Vežėjas — ${schedule.location.operator}. Konteinerį reikia išstumti iki <strong>7:00 ryto</strong>.</p>
+<p>Prenumeruojamas iCal kalendorius su buitinių, pakuočių, stiklo ir žaliųjų atliekų išvežimo dienomis.
+Vežėjai — ${OPERATORS.join(" ir ")}. Konteinerį reikia išstumti iki <strong>7:00 ryto</strong>.</p>
 
 <p>
   <a class="btn" id="webcal" href="#">📅 Prenumeruoti (Apple/Outlook)</a>
@@ -165,7 +169,9 @@ Vežėjas — ${schedule.location.operator}. Konteinerį reikia išstumti iki <s
 </table>
 
 <footer>
-  Duomenų šaltinis: <a href="https://www.nemenkom.lt/buitiniu-ir-pakuociu-atlieku-surinkimo-grafikas/">UAB Nemenčinės komunalininkas</a>
+  Duomenų šaltiniai: <a href="https://www.nemenkom.lt/buitiniu-ir-pakuociu-atlieku-surinkimo-grafikas/">UAB Nemenčinės komunalininkas</a>
+  (buitinės, pakuočių, stiklo atliekos),
+  <a href="https://ecoservice.lt/zaliuju-atlieku-isvezimo-grafikas/">UAB Ecoservice</a> (žaliosios atliekos)
   ir <a href="https://vrsa.lt/atlieku-tvarkymas/atlieku-surinkimo-grafikai/404">Vilniaus rajono savivaldybė</a>.
   Neoficialus puslapis; atnaujinta ${todayIso}.
 </footer>

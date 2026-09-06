@@ -3,13 +3,13 @@
     "street": "Samanų g.",
     "town": "Didžioji Riešė",
     "eldership": "Riešės sen.",
-    "municipality": "Vilniaus r.",
-    "operator": "UAB Nemenčinės komunalininkas"
+    "municipality": "Vilniaus r."
   },
   "streams": {
     "mixed": {
       "label": "Buitinės (mišrios) atliekos",
       "emoji": "🗑️",
+      "operator": "UAB Nemenčinės komunalininkas",
       "weekday": "Trečiadienis",
       "dates": [
         "2026-06-10",
@@ -33,6 +33,7 @@
     "packaging": {
       "label": "Pakuočių atliekos (plastikas, popierius, metalas)",
       "emoji": "♻️",
+      "operator": "UAB Nemenčinės komunalininkas",
       "dates": [
         "2026-07-03",
         "2026-08-05",
@@ -43,10 +44,36 @@
     "glass": {
       "label": "Stiklo pakuočių atliekos",
       "emoji": "🍾",
+      "operator": "UAB Nemenčinės komunalininkas",
       "dates": [
         "2026-07-29"
       ],
       "source": "https://www.nemenkom.lt/uploads/failai/atliekos/Stiklo%20pakuot%C4%97s/2026%20m-%20liepos%2C%20rugpj%C5%AB%C4%8Dio%2C%20rugs%C4%97jo%20m%C4%97n-%20Stiklo%20pakuo%C4%8Di%C5%B3%20atliek%C5%B3%20surinkimo%20grafikas.pdf"
+    },
+    "green": {
+      "label": "Žaliosios atliekos",
+      "emoji": "🌿",
+      "operator": "UAB Ecoservice",
+      "weekday": "Trečiadienis",
+      "dates": [
+        "2026-04-22",
+        "2026-05-06",
+        "2026-05-20",
+        "2026-06-03",
+        "2026-06-17",
+        "2026-07-01",
+        "2026-07-15",
+        "2026-07-29",
+        "2026-08-12",
+        "2026-08-26",
+        "2026-09-09",
+        "2026-09-23",
+        "2026-10-07",
+        "2026-10-21",
+        "2026-11-04",
+        "2026-11-18"
+      ],
+      "source": "https://ecoservice.lt/wp-content/uploads/2026/04/Zaliuju-atlieku-isvezimo-grafikas-2026.pdf"
     }
   },
   "knownSourceFiles": [
