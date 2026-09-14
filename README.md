@@ -11,8 +11,8 @@ Subscribable iCal feed with waste collection dates for **Samanų g., Didžioji R
 | Stream | Cadence | Source |
 | --- | --- | --- |
 | 🗑️ Buitinės (mišrios) atliekos | every 2nd Wednesday | XLSX, parsed automatically |
-| ♻️ Pakuočių atliekos | ~monthly | PDF, entered manually |
-| 🍾 Stiklo pakuočių atliekos | ~quarterly | PDF, entered manually |
+| ♻️ Pakuočių atliekos | ~monthly | PDF, parsed automatically |
+| 🍾 Stiklo pakuočių atliekos | ~quarterly | PDF, parsed automatically |
 | 🌿 Žaliosios atliekos | every 2nd Wednesday, Apr–Nov | PDF, parsed automatically |
 
 Operators: [UAB Nemenčinės komunalininkas](https://www.nemenkom.lt/buitiniu-ir-pakuociu-atlieku-surinkimo-grafikas/)
@@ -22,10 +22,11 @@ Municipality: [vrsa.lt](https://vrsa.lt/atlieku-tvarkymas/atlieku-surinkimo-graf
 ## How it works
 
 - `data/schedule.json` — source of truth for all pickup dates.
-- `scripts/fetch.mjs` — downloads Nemenčinės komunalininkas' household-waste XLSX, finds the
-  street group containing `Samanų g.` in `Didžioji Riešė`, and merges new dates in.
-  If new packaging/glass PDFs are published, the workflow opens a GitHub issue
-  (those tables are too irregular to parse reliably — update the JSON by hand).
+- `scripts/fetch.mjs` — downloads Nemenčinės komunalininkas' household-waste XLSX and the
+  quarterly packaging/glass PDFs, finds the street group containing `Samanų g.` in
+  `Didžioji Riešė`, and merges the dates in (PDF dates replace the months the PDF covers).
+  If a file cannot be handled automatically (unknown file type, or our row is not found),
+  the workflow opens a GitHub issue so the JSON can be updated by hand.
   It also downloads Ecoservice's green-waste PDF (one row per address) and reads
   the dates for `Samanų g.` in `Didžiosios Riešės k.`; all of Didžioji Riešė shares
   the same green-waste dates, so any row from the town is used as a fallback.
@@ -45,5 +46,5 @@ npm run build   # writes public/garbage.ics + public/index.html
 ## Adapting to another street
 
 Edit `data/schedule.json` (location + dates) and, in `scripts/fetch.mjs`, the
-`GROUP_RE` regex (your street's row in the Nemenčinės komunalininkas XLSX) and the
+`GROUP_RE` regex (your street's row in the Nemenčinės komunalininkas XLSX and PDFs) and the
 `ECO_TOWN_RE` / `ECO_STREET_RE` regexes (your row in the Ecoservice PDF).

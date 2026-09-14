@@ -30,7 +30,7 @@ jobs:
 
       - run: npm ci
 
-      - name: Fetch latest schedule from nemenkom.lt
+      - name: Fetch latest schedules from nemenkom.lt and ecoservice.lt
         id: fetch
         run: |
           set +e
@@ -38,21 +38,21 @@ jobs:
           code=$?
           set -e
           echo "exit_code=$code" >> "$GITHUB_OUTPUT"
-          # exit 1 = hard parse failure; exit 2 = ok but new PDFs need review
+          # exit 1 = hard parse failure; exit 2 = ok but some source files need manual review
           if [ "$code" = "1" ]; then
             echo "::warning::fetch.mjs failed — building from committed data/schedule.json"
           fi
 
-      - name: Open issue if new source files need manual review
+      - name: Open issue if source files need manual review
         if: steps.fetch.outputs.exit_code == '2'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          title="New schedule files published on nemenkom.lt — update packaging/glass dates"
+          title="Schedule files on nemenkom.lt could not be parsed automatically — review needed"
           existing=$(gh issue list --state open --search "$title in:title" --json number --jq length)
           if [ "$existing" = "0" ]; then
             gh issue create --title "$title" \
-              --body "scripts/fetch.mjs detected new schedule files on https://www.nemenkom.lt/buitiniu-ir-pakuociu-atlieku-surinkimo-grafikas/ . Household (mixed) dates were updated automatically; packaging/glass PDF dates must be updated by hand in data/schedule.json. See the workflow run log for the file URLs."
+              --body "scripts/fetch.mjs could not handle some schedule files on https://www.nemenkom.lt/buitiniu-ir-pakuociu-atlieku-surinkimo-grafikas/ (unknown file type, or our street row was not found). Other streams were updated automatically; check the affected dates in data/schedule.json by hand. File URLs: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
           fi
 
       - name: Commit updated schedule.json
@@ -61,7 +61,7 @@ jobs:
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
             git add data/schedule.json
-            git commit -m "chore: update schedule from nemenkom.lt"
+            git commit -m "chore: update schedule from nemenkom.lt / ecoservice.lt"
             git push
           fi
 
