@@ -28,7 +28,15 @@
         "2026-12-09",
         "2026-12-23"
       ],
-      "source": "https://www.nemenkom.lt/uploads/failai/atliekos/Buitini%C5%B3%20atliek%C5%B3%20surinkimo%20grafikai/2026%20m-%20bir%C5%BEelis-gruodis%20m%C4%97n%20%20Buitini%C5%B3%20atliek%C5%B3%20surinkimo%20grafikas.xlsx"
+      "sources": {
+        "2026-06": "https://www.nemenkom.lt/uploads/failai/atliekos/Buitini%C5%B3%20atliek%C5%B3%20surinkimo%20grafikai/2026%20m-%20bir%C5%BEelis-gruodis%20m%C4%97n%20%20Buitini%C5%B3%20atliek%C5%B3%20surinkimo%20grafikas.xlsx",
+        "2026-07": "https://www.nemenkom.lt/uploads/failai/atliekos/Buitini%C5%B3%20atliek%C5%B3%20surinkimo%20grafikai/2026%20m-%20bir%C5%BEelis-gruodis%20m%C4%97n%20%20Buitini%C5%B3%20atliek%C5%B3%20surinkimo%20grafikas.xlsx",
+        "2026-08": "https://www.nemenkom.lt/uploads/failai/atliekos/Buitini%C5%B3%20atliek%C5%B3%20surinkimo%20grafikai/2026%20m-%20bir%C5%BEelis-gruodis%20m%C4%97n%20%20Buitini%C5%B3%20atliek%C5%B3%20surinkimo%20grafikas.xlsx",
+        "2026-09": "https://www.nemenkom.lt/uploads/failai/atliekos/Buitini%C5%B3%20atliek%C5%B3%20surinkimo%20grafikai/2026%20m-%20bir%C5%BEelis-gruodis%20m%C4%97n%20%20Buitini%C5%B3%20atliek%C5%B3%20surinkimo%20grafikas.xlsx",
+        "2026-10": "https://www.nemenkom.lt/uploads/failai/atliekos/Buitini%C5%B3%20atliek%C5%B3%20surinkimo%20grafikai/2026%20m-%20bir%C5%BEelis-gruodis%20m%C4%97n%20%20Buitini%C5%B3%20atliek%C5%B3%20surinkimo%20grafikas.xlsx",
+        "2026-11": "https://www.nemenkom.lt/uploads/failai/atliekos/Buitini%C5%B3%20atliek%C5%B3%20surinkimo%20grafikai/2026%20m-%20bir%C5%BEelis-gruodis%20m%C4%97n%20%20Buitini%C5%B3%20atliek%C5%B3%20surinkimo%20grafikas.xlsx",
+        "2026-12": "https://www.nemenkom.lt/uploads/failai/atliekos/Buitini%C5%B3%20atliek%C5%B3%20surinkimo%20grafikai/2026%20m-%20bir%C5%BEelis-gruodis%20m%C4%97n%20%20Buitini%C5%B3%20atliek%C5%B3%20surinkimo%20grafikas.xlsx"
+      }
     },
     "packaging": {
       "label": "Pakuočių atliekos (plastikas, popierius, metalas)",
@@ -42,7 +50,14 @@
         "2026-11-04",
         "2026-12-03"
       ],
-      "source": "https://www.nemenkom.lt/uploads/failai/atliekos/Pakuo%C4%8Di%C5%B3%20atliek%C5%B3%20grafikas/%E2%80%9E2026%20m-%20liepos%2C%20rugpj%C5%AB%C4%8Dio%2C%20rugs%C4%97jo%20m%C4%97n-%20Pakuo%C4%8Di%C5%B3%20atliek%C5%B3%20surinkimo%20grafikas.pdf"
+      "sources": {
+        "2026-07": "https://www.nemenkom.lt/uploads/failai/atliekos/Pakuo%C4%8Di%C5%B3%20atliek%C5%B3%20grafikas/%E2%80%9E2026%20m-%20liepos%2C%20rugpj%C5%AB%C4%8Dio%2C%20rugs%C4%97jo%20m%C4%97n-%20Pakuo%C4%8Di%C5%B3%20atliek%C5%B3%20surinkimo%20grafikas.pdf",
+        "2026-08": "https://www.nemenkom.lt/uploads/failai/atliekos/Pakuo%C4%8Di%C5%B3%20atliek%C5%B3%20grafikas/%E2%80%9E2026%20m-%20liepos%2C%20rugpj%C5%AB%C4%8Dio%2C%20rugs%C4%97jo%20m%C4%97n-%20Pakuo%C4%8Di%C5%B3%20atliek%C5%B3%20surinkimo%20grafikas.pdf",
+        "2026-09": "https://www.nemenkom.lt/uploads/failai/atliekos/Pakuo%C4%8Di%C5%B3%20atliek%C5%B3%20grafikas/%E2%80%9E2026%20m-%20liepos%2C%20rugpj%C5%AB%C4%8Dio%2C%20rugs%C4%97jo%20m%C4%97n-%20Pakuo%C4%8Di%C5%B3%20atliek%C5%B3%20surinkimo%20grafikas.pdf",
+        "2026-10": "https://www.nemenkom.lt/uploads/failai/atliekos/Pakuo%C4%8Di%C5%B3%20atliek%C5%B3%20grafikas/%E2%80%9E2026%20m-%20spalio%2C%20lapkri%C4%8Dio%2C%20gruod%C5%BEio%20m%C4%97n-%20Pakuo%C4%8Di%C5%B3%20atliek%C5%B3%20surinkimo%20grafikas%20(vie%C5%A1inimui)%20(1)%20(1).pdf",
+        "2026-11": "https://www.nemenkom.lt/uploads/failai/atliekos/Pakuo%C4%8Di%C5%B3%20atliek%C5%B3%20grafikas/%E2%80%9E2026%20m-%20spalio%2C%20lapkri%C4%8Dio%2C%20gruod%C5%BEio%20m%C4%97n-%20Pakuo%C4%8Di%C5%B3%20atliek%C5%B3%20surinkimo%20grafikas%20(vie%C5%A1inimui)%20(1)%20(1).pdf",
+        "2026-12": "https://www.nemenkom.lt/uploads/failai/atliekos/Pakuo%C4%8Di%C5%B3%20atliek%C5%B3%20grafikas/%E2%80%9E2026%20m-%20spalio%2C%20lapkri%C4%8Dio%2C%20gruod%C5%BEio%20m%C4%97n-%20Pakuo%C4%8Di%C5%B3%20atliek%C5%B3%20surinkimo%20grafikas%20(vie%C5%A1inimui)%20(1)%20(1).pdf"
+      }
     },
     "glass": {
       "label": "Stiklo pakuočių atliekos",
@@ -52,7 +67,14 @@
         "2026-07-29",
         "2026-10-28"
       ],
-      "source": "https://www.nemenkom.lt/uploads/failai/atliekos/Stiklo%20pakuot%C4%97s/2026%20m-%20liepos%2C%20rugpj%C5%AB%C4%8Dio%2C%20rugs%C4%97jo%20m%C4%97n-%20Stiklo%20pakuo%C4%8Di%C5%B3%20atliek%C5%B3%20surinkimo%20grafikas.pdf"
+      "sources": {
+        "2026-07": "https://www.nemenkom.lt/uploads/failai/atliekos/Stiklo%20pakuot%C4%97s/2026%20m-%20liepos%2C%20rugpj%C5%AB%C4%8Dio%2C%20rugs%C4%97jo%20m%C4%97n-%20Stiklo%20pakuo%C4%8Di%C5%B3%20atliek%C5%B3%20surinkimo%20grafikas.pdf",
+        "2026-08": "https://www.nemenkom.lt/uploads/failai/atliekos/Stiklo%20pakuot%C4%97s/2026%20m-%20liepos%2C%20rugpj%C5%AB%C4%8Dio%2C%20rugs%C4%97jo%20m%C4%97n-%20Stiklo%20pakuo%C4%8Di%C5%B3%20atliek%C5%B3%20surinkimo%20grafikas.pdf",
+        "2026-09": "https://www.nemenkom.lt/uploads/failai/atliekos/Stiklo%20pakuot%C4%97s/2026%20m-%20liepos%2C%20rugpj%C5%AB%C4%8Dio%2C%20rugs%C4%97jo%20m%C4%97n-%20Stiklo%20pakuo%C4%8Di%C5%B3%20atliek%C5%B3%20surinkimo%20grafikas.pdf",
+        "2026-10": "https://www.nemenkom.lt/uploads/failai/atliekos/Stiklo%20pakuot%C4%97s/2026%20m-%20spalio%2C%20lapkri%C4%8Dio%2C%20gruod%C5%BEio%20m%C4%97n-%20Stiklo%20pakuo%C4%8Di%C5%B3%20atliek%C5%B3%20surinkimo%20grafikas%20(vie%C5%A1inimui).pdf",
+        "2026-11": "https://www.nemenkom.lt/uploads/failai/atliekos/Stiklo%20pakuot%C4%97s/2026%20m-%20spalio%2C%20lapkri%C4%8Dio%2C%20gruod%C5%BEio%20m%C4%97n-%20Stiklo%20pakuo%C4%8Di%C5%B3%20atliek%C5%B3%20surinkimo%20grafikas%20(vie%C5%A1inimui).pdf",
+        "2026-12": "https://www.nemenkom.lt/uploads/failai/atliekos/Stiklo%20pakuot%C4%97s/2026%20m-%20spalio%2C%20lapkri%C4%8Dio%2C%20gruod%C5%BEio%20m%C4%97n-%20Stiklo%20pakuo%C4%8Di%C5%B3%20atliek%C5%B3%20surinkimo%20grafikas%20(vie%C5%A1inimui).pdf"
+      }
     },
     "green": {
       "label": "Žaliosios atliekos",
@@ -77,7 +99,16 @@
         "2026-11-04",
         "2026-11-18"
       ],
-      "source": "https://ecoservice.lt/wp-content/uploads/2026/04/Zaliuju-atlieku-isvezimo-grafikas-2026.pdf"
+      "sources": {
+        "2026-04": "https://ecoservice.lt/wp-content/uploads/2026/04/Zaliuju-atlieku-isvezimo-grafikas-2026.pdf",
+        "2026-05": "https://ecoservice.lt/wp-content/uploads/2026/04/Zaliuju-atlieku-isvezimo-grafikas-2026.pdf",
+        "2026-06": "https://ecoservice.lt/wp-content/uploads/2026/04/Zaliuju-atlieku-isvezimo-grafikas-2026.pdf",
+        "2026-07": "https://ecoservice.lt/wp-content/uploads/2026/04/Zaliuju-atlieku-isvezimo-grafikas-2026.pdf",
+        "2026-08": "https://ecoservice.lt/wp-content/uploads/2026/04/Zaliuju-atlieku-isvezimo-grafikas-2026.pdf",
+        "2026-09": "https://ecoservice.lt/wp-content/uploads/2026/04/Zaliuju-atlieku-isvezimo-grafikas-2026.pdf",
+        "2026-10": "https://ecoservice.lt/wp-content/uploads/2026/04/Zaliuju-atlieku-isvezimo-grafikas-2026.pdf",
+        "2026-11": "https://ecoservice.lt/wp-content/uploads/2026/04/Zaliuju-atlieku-isvezimo-grafikas-2026.pdf"
+      }
     }
   }
 }

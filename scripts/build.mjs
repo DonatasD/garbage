@@ -26,10 +26,20 @@ function assertValidDate(iso) {
   return d;
 }
 
-// Sanity check: mixed-waste dates must fall on the weekday the operator declares.
+// Each date's source document is looked up by its "YYYY-MM" month: the
+// operators publish one file per quarter/half-year, so a stream spans several.
+function sourceFor(key, stream, iso) {
+  const url = stream.sources?.[iso.slice(0, 7)];
+  if (!url) throw new Error(`${key} date ${iso} has no source document for month ${iso.slice(0, 7)}`);
+  return url;
+}
+
+// Sanity checks: dates must be valid and have a source document, and
+// mixed-waste dates must fall on the weekday the operator declares.
 for (const [key, stream] of Object.entries(schedule.streams)) {
   for (const iso of stream.dates) {
     const d = assertValidDate(iso);
+    sourceFor(key, stream, iso);
     if (stream.weekday && WEEKDAYS_LT[stream.weekday] !== undefined && d.getUTCDay() !== WEEKDAYS_LT[stream.weekday]) {
       throw new Error(`${key} date ${iso} is not a ${stream.weekday}`);
     }
@@ -97,7 +107,7 @@ for (const { key, stream, iso } of allEvents) {
     `DTSTART;VALUE=DATE:${icsDate(iso)}`,
     `DTEND;VALUE=DATE:${icsDate(nextDay(iso))}`,
     `SUMMARY:${escapeText(`${stream.emoji} ${stream.label}`)}`,
-    `DESCRIPTION:${escapeText(`Konteinerį išstumti iki 7:00 ryto.\nVežėjas: ${stream.operator}\nŠaltinis: ${stream.source}`)}`,
+    `DESCRIPTION:${escapeText(`Konteinerį išstumti iki 7:00 ryto.\nVežėjas: ${stream.operator}\nŠaltinis: ${sourceFor(key, stream, iso)}`)}`,
     `LOCATION:${escapeText(`${schedule.location.street}, ${schedule.location.town}, ${schedule.location.municipality}`)}`,
     "TRANSP:TRANSPARENT",
     "BEGIN:VALARM",

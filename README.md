@@ -25,6 +25,8 @@ Municipality: [vrsa.lt](https://vrsa.lt/atlieku-tvarkymas/atlieku-surinkimo-graf
 - `scripts/fetch.mjs` — downloads Nemenčinės komunalininkas' household-waste XLSX and the
   quarterly packaging/glass PDFs, finds the street group containing `Samanų g.` in
   `Didžioji Riešė`, and merges the dates in (PDF dates replace the months the PDF covers).
+  Every stream records which document each month's dates came from (`sources`, keyed by
+  `YYYY-MM`), so an event links to the PDF that actually lists it.
   If a source cannot be fetched at all, or a file cannot be handled automatically (unknown
   file type, or our row is not found), the workflow opens a GitHub issue with the fetch log
   (and comments on it while the problem persists) so the JSON can be updated by hand.

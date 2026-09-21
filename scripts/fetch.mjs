@@ -72,6 +72,21 @@ function mergeMonths(existing, fresh, months) {
   return [...new Set([...kept, ...fresh])].sort();
 }
 
+// Each stream remembers which document its dates came from, per "YYYY-MM"
+// month, because the operators publish one file per quarter/half-year and a
+// single per-stream URL would point October's events at the July–September
+// PDF (whichever file happened to be parsed last).
+function recordSources(stream, months, url) {
+  delete stream.source; // legacy single-URL field
+  stream.sources ??= {};
+  for (const m of months) stream.sources[m] = url;
+  stream.sources = Object.fromEntries(Object.entries(stream.sources).sort(([a], [b]) => a.localeCompare(b)));
+}
+
+function monthsOf(dates) {
+  return new Set(dates.map(d => d.slice(0, 7)));
+}
+
 // ---------------------------------------------------------------------------
 // nemenkom.lt — mixed waste (XLSX) + packaging and glass (PDF)
 // ---------------------------------------------------------------------------
@@ -167,7 +182,7 @@ async function fetchMixedXlsx(url, name) {
     // The XLSX covers only part of a year, so union rather than replace.
     schedule.streams.mixed.dates = [...new Set([...schedule.streams.mixed.dates, ...dates])].sort();
     schedule.streams.mixed.weekday = String(weekday).trim();
-    schedule.streams.mixed.source = url;
+    recordSources(schedule.streams.mixed, monthsOf(dates), url);
     parsedAny = true;
     console.log(`  Parsed ${dates.length} mixed-waste dates (${schedule.streams.mixed.dates.length - before} new) from sheet "${sheetName}"`);
   }
@@ -193,7 +208,7 @@ async function fetchStreamPdf(url, name, kind) {
   const stream = schedule.streams[kind];
   const before = stream.dates.length;
   stream.dates = mergeMonths(stream.dates, parsed.dates, parsed.months);
-  stream.source = url;
+  recordSources(stream, parsed.months, url);
   console.log(`  Parsed ${parsed.dates.length} ${kind} dates for ${[...parsed.months].join(", ")} (${stream.dates.length - before} net new)`);
   return true;
 }
@@ -309,7 +324,7 @@ async function fetchEcoservice() {
     }
     const before = schedule.streams.green.dates.length;
     schedule.streams.green.dates = mergeDates(schedule.streams.green.dates, dates);
-    schedule.streams.green.source = url;
+    recordSources(schedule.streams.green, monthsOf(dates), url);
     parsedAny = true;
     console.log(`  Parsed ${dates.length} green-waste dates (${schedule.streams.green.dates.length - before} new)`);
   }
