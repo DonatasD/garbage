@@ -37,7 +37,10 @@
       "dates": [
         "2026-07-03",
         "2026-08-05",
-        "2026-09-03"
+        "2026-09-03",
+        "2026-10-05",
+        "2026-11-04",
+        "2026-12-03"
       ],
       "source": "https://www.nemenkom.lt/uploads/failai/atliekos/Pakuo%C4%8Di%C5%B3%20atliek%C5%B3%20grafikas/%E2%80%9E2026%20m-%20liepos%2C%20rugpj%C5%AB%C4%8Dio%2C%20rugs%C4%97jo%20m%C4%97n-%20Pakuo%C4%8Di%C5%B3%20atliek%C5%B3%20surinkimo%20grafikas.pdf"
     },
@@ -46,7 +49,8 @@
       "emoji": "🍾",
       "operator": "UAB Nemenčinės komunalininkas",
       "dates": [
-        "2026-07-29"
+        "2026-07-29",
+        "2026-10-28"
       ],
       "source": "https://www.nemenkom.lt/uploads/failai/atliekos/Stiklo%20pakuot%C4%97s/2026%20m-%20liepos%2C%20rugpj%C5%AB%C4%8Dio%2C%20rugs%C4%97jo%20m%C4%97n-%20Stiklo%20pakuo%C4%8Di%C5%B3%20atliek%C5%B3%20surinkimo%20grafikas.pdf"
     },

@@ -26,10 +26,31 @@ const schedule = JSON.parse(readFileSync(schedulePath, "utf8"));
 
 const UA = { "user-agent": "garbage-calendar-bot" };
 
+// Lithuanian month names as they appear in column headers: nominative in the
+// XLSX and older PDFs ("Liepa"), genitive in PDFs since Q4 2026 ("Spalio").
 const MONTHS_LT = {
   sausis: 1, vasaris: 2, kovas: 3, balandis: 4, gegužė: 5, birželis: 6,
   liepa: 7, rugpjūtis: 8, rugsėjis: 9, spalis: 10, lapkritis: 11, gruodis: 12,
+  sausio: 1, vasario: 2, kovo: 3, balandžio: 4, gegužės: 5, birželio: 6,
+  liepos: 7, rugpjūčio: 8, rugsėjo: 9, spalio: 10, lapkričio: 11, gruodžio: 12,
 };
+
+// fetch() with a timeout and a few retries. Node reports network errors as a
+// bare "fetch failed" and hides the reason in err.cause, so surface it.
+async function get(url, attempts = 3) {
+  let lastErr;
+  for (let i = 1; i <= attempts; i++) {
+    try {
+      return await fetch(url, { headers: UA, signal: AbortSignal.timeout(60_000) });
+    } catch (err) {
+      const cause = err.cause ? ` (${err.cause.code ?? err.cause.message})` : "";
+      lastErr = new Error(`${err.message}${cause} for ${url}`);
+      console.error(`  attempt ${i}/${attempts} failed: ${lastErr.message}`);
+      if (i < attempts) await new Promise(r => setTimeout(r, 5_000 * i));
+    }
+  }
+  throw lastErr;
+}
 
 // Matches our address: Didžioji Riešė group that lists Samanų g.
 // The XLSX writes the town in nominative ("Didžioji Riešė"), the PDFs in
@@ -58,7 +79,7 @@ async function fetchNemenkom() {
   const PAGE = "https://www.nemenkom.lt/buitiniu-ir-pakuociu-atlieku-surinkimo-grafikas/";
   const ORIGIN = "https://www.nemenkom.lt";
 
-  const res = await fetch(PAGE, { headers: UA });
+  const res = await get(PAGE);
   if (!res.ok) throw new Error(`Failed to fetch ${PAGE}: HTTP ${res.status}`);
   const html = await res.text();
 
@@ -102,7 +123,7 @@ async function fetchNemenkom() {
 // group, one column per month with cells like "10 d., 24 d.".
 async function fetchMixedXlsx(url, name) {
   console.log(`Downloading ${url}`);
-  const fileRes = await fetch(url, { headers: UA });
+  const fileRes = await get(url);
   if (!fileRes.ok) {
     console.error(`  HTTP ${fileRes.status}, skipping`);
     return false;
@@ -157,7 +178,7 @@ async function fetchMixedXlsx(url, name) {
 // Packaging / glass PDF. Returns true when our row was found and merged.
 async function fetchStreamPdf(url, name, kind) {
   console.log(`Downloading ${url}`);
-  const fileRes = await fetch(url, { headers: UA });
+  const fileRes = await get(url);
   if (!fileRes.ok) {
     console.error(`  HTTP ${fileRes.status}, skipping`);
     return false;
@@ -261,7 +282,7 @@ const ECO_STREET_RE = /Saman[ųu]\s+g\./i;
 
 async function fetchEcoservice() {
   const PAGE = "https://ecoservice.lt/zaliuju-atlieku-isvezimo-grafikas/";
-  const res = await fetch(PAGE, { headers: UA });
+  const res = await get(PAGE);
   if (!res.ok) throw new Error(`Failed to fetch ${PAGE}: HTTP ${res.status}`);
   const html = await res.text();
 
@@ -275,7 +296,7 @@ async function fetchEcoservice() {
   for (const link of pdfLinks) {
     const url = link.startsWith("http") ? link : new URL(link, PAGE).href;
     console.log(`Downloading ${url}`);
-    const fileRes = await fetch(url, { headers: UA });
+    const fileRes = await get(url);
     if (!fileRes.ok) {
       console.error(`  HTTP ${fileRes.status}, skipping`);
       continue;

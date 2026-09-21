@@ -34,25 +34,43 @@ jobs:
         id: fetch
         run: |
           set +e
-          node scripts/fetch.mjs
-          code=$?
+          node scripts/fetch.mjs 2>&1 | tee "$RUNNER_TEMP/fetch.log"
+          code=${PIPESTATUS[0]}
           set -e
           echo "exit_code=$code" >> "$GITHUB_OUTPUT"
-          # exit 1 = hard parse failure; exit 2 = ok but some source files need manual review
-          if [ "$code" = "1" ]; then
-            echo "::warning::fetch.mjs failed — building from committed data/schedule.json"
+          # exit 1 = a source could not be fetched/parsed; exit 2 = ok but some source files need manual review
+          if [ "$code" != "0" ]; then
+            echo "::warning::fetch.mjs exited with $code — building from committed data/schedule.json where needed"
           fi
 
-      - name: Open issue if source files need manual review
-        if: steps.fetch.outputs.exit_code == '2'
+      - name: Open issue if fetching schedules needs attention
+        if: steps.fetch.outputs.exit_code != '0'
         env:
           GH_TOKEN: ${{ github.token }}
+          EXIT_CODE: ${{ steps.fetch.outputs.exit_code }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         run: |
-          title="Schedule files on nemenkom.lt could not be parsed automatically — review needed"
-          existing=$(gh issue list --state open --search "$title in:title" --json number --jq length)
-          if [ "$existing" = "0" ]; then
-            gh issue create --title "$title" \
-              --body "scripts/fetch.mjs could not handle some schedule files on https://www.nemenkom.lt/buitiniu-ir-pakuociu-atlieku-surinkimo-grafikas/ (unknown file type, or our street row was not found). Other streams were updated automatically; check the affected dates in data/schedule.json by hand. File URLs: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          if [ "$EXIT_CODE" = "2" ]; then
+            title="Schedule files on nemenkom.lt could not be parsed automatically — review needed"
+            intro="scripts/fetch.mjs could not handle some schedule files on https://www.nemenkom.lt/buitiniu-ir-pakuociu-atlieku-surinkimo-grafikas/ (unknown file type, or our street row was not found). Other streams were updated automatically; check the affected dates in data/schedule.json by hand."
+          else
+            title="Fetching schedules failed — calendar will go stale"
+            intro="scripts/fetch.mjs could not fetch or parse at least one source (see the log below). The calendar was built from the committed data/schedule.json, which stops receiving new dates until this is fixed."
+          fi
+          {
+            echo "$intro"
+            echo
+            echo "Run: $RUN_URL"
+            echo
+            echo '```'
+            tail -n 40 "$RUNNER_TEMP/fetch.log"
+            echo '```'
+          } > "$RUNNER_TEMP/issue-body.md"
+          number=$(gh issue list --state open --search "$title in:title" --json number --jq '.[0].number // empty')
+          if [ -z "$number" ]; then
+            gh issue create --title "$title" --body-file "$RUNNER_TEMP/issue-body.md"
+          else
+            gh issue comment "$number" --body-file "$RUNNER_TEMP/issue-body.md"
           fi
 
       - name: Commit updated schedule.json
